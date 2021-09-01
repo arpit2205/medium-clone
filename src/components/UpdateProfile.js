@@ -18,8 +18,8 @@ import { useAuth } from "../contexts/AuthContext";
 
 import { Link, useHistory } from "react-router-dom";
 
-function Signup() {
-  const { signup } = useAuth();
+function UpdateProfile() {
+  const { currentUser, updateEmail, updatePassword } = useAuth();
   const [email, setEmail] = useState("");
   const [pwd, setPwd] = useState("");
   const [confirmPwd, setConfirmPwd] = useState("");
@@ -28,9 +28,7 @@ function Signup() {
   const toast = useToast();
   const history = useHistory();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
+  const handleSubmit = (e) => {
     if (pwd !== confirmPwd) {
       setError("Passwords do not match.");
       toast({
@@ -41,30 +39,35 @@ function Signup() {
       return;
     }
 
-    try {
-      setError("");
-      setLoading(true);
-      await signup(email, pwd);
+    const promises = [];
 
-      toast({
-        title: "Account successfully created",
-        status: "success",
-        duration: 5000,
+    setLoading(true);
+    setError("");
+
+    if (email !== currentUser.email) promises.push(updateEmail(email));
+
+    if (pwd) promises.push(updatePassword(pwd));
+
+    Promise.all(promises)
+      .then(() => {
+        toast({
+          title: "Account updated successfully",
+          status: "success",
+          duration: 5000,
+        });
+        history.push("/");
+      })
+      .catch((err) => {
+        setError(err);
+        toast({
+          title: err.message,
+          status: "error",
+          duration: 5000,
+        });
+      })
+      .finally(() => {
+        setLoading(false);
       });
-
-      history.push("/");
-    } catch (err) {
-      console.log(err);
-      setError(err.message);
-
-      toast({
-        title: err.message,
-        status: "error",
-        duration: 5000,
-      });
-    }
-
-    setLoading(false);
   };
 
   return (
@@ -78,35 +81,38 @@ function Signup() {
     >
       <Box w="90%" maxW="400px" boxShadow="lg" px={6} py={8} rounded="lg">
         <Text fontSize="2xl" fontWeight="semibold" mb={4}>
-          Sign Up
+          Update Profile
         </Text>
 
-        <FormControl id="email" mt={4} isRequired>
+        <FormControl id="email" mt={4}>
           <FormLabel>Email address</FormLabel>
           <Input
             type="email"
             variant="filled"
             value={email}
+            placeholder={currentUser.email}
             onChange={(e) => setEmail(e.target.value)}
           />
         </FormControl>
 
-        <FormControl id="password" mt={4} isRequired>
+        <FormControl id="password" mt={4}>
           <FormLabel>Password</FormLabel>
           <Input
             type="password"
             variant="filled"
             value={pwd}
+            placeholder="Leave blank to keep the same"
             onChange={(e) => setPwd(e.target.value)}
           />
         </FormControl>
 
-        <FormControl id="confirm-password" mt={4} isRequired>
+        <FormControl id="confirm-password" mt={4}>
           <FormLabel>Confirm password</FormLabel>
           <Input
             type="password"
             variant="filled"
             value={confirmPwd}
+            placeholder="Leave blank to keep the same"
             onChange={(e) => setConfirmPwd(e.target.value)}
           />
         </FormControl>
@@ -119,17 +125,16 @@ function Signup() {
           onClick={handleSubmit}
           isLoading={loading}
         >
-          Sign Up
+          Update profile
         </Button>
       </Box>
       <Text mt={8} fontWeight="normal" fontSize="lg">
-        Already have an account?{" "}
-        <Link to="/login">
-          <ChakraLink color="blue.400">Login</ChakraLink>
+        <Link to="/">
+          <ChakraLink color="blue.400">Cancel</ChakraLink>
         </Link>
       </Text>
     </Box>
   );
 }
 
-export default Signup;
+export default UpdateProfile;

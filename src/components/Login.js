@@ -60,11 +60,11 @@ function Login() {
   return (
     <Box
       d="flex"
-      maxH="100vh"
       w="100%"
       justifyContent="center"
       alignItems="center"
       textAlign="center"
+      flexDirection="column"
     >
       <Box w="90%" maxW="400px" boxShadow="lg" px={6} py={8} rounded="lg">
         <Text fontSize="2xl" fontWeight="semibold" mb={4}>
@@ -103,12 +103,17 @@ function Login() {
         </Button>
 
         <Text mt={6} fontWeight="normal" fontSize="lg">
-          Don't have an account?{" "}
-          <Link to="/signup">
-            <ChakraLink color="teal.400">Sign up</ChakraLink>
+          <Link to="/forgot-password">
+            <ChakraLink color="blue.400">Forgot password?</ChakraLink>
           </Link>
         </Text>
       </Box>
+      <Text mt={8} fontWeight="normal" fontSize="lg">
+        Don't have an account?{" "}
+        <Link to="/signup">
+          <ChakraLink color="blue.400">Sign up</ChakraLink>
+        </Link>
+      </Text>
     </Box>
   );
 }

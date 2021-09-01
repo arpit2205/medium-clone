@@ -32,7 +32,6 @@ function Profile() {
   return (
     <Box
       d="flex"
-      maxH="100vh"
       w="100%"
       justifyContent="center"
       alignItems="center"
@@ -50,6 +49,17 @@ function Profile() {
             {currentUser.email}
           </Text>
         </Box>
+        <Button
+          w="100%"
+          mt={4}
+          py={6}
+          colorScheme="blue"
+          onClick={() => {
+            history.push("/update-profile");
+          }}
+        >
+          Update profile
+        </Button>
         <Button w="100%" mt={4} py={6} onClick={handleLogout}>
           Logout
         </Button>

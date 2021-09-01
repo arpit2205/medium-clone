@@ -5,6 +5,8 @@ import Signup from "./components/Signup";
 import Login from "./components/Login";
 import Profile from "./components/Profile";
 import PrivateRoute from "./components/PrivateRoute";
+import ForgotPassword from "./components/ForgotPassword";
+import UpdateProfile from "./components/UpdateProfile";
 
 import { AuthProvider } from "./contexts/AuthContext";
 
@@ -17,8 +19,14 @@ function App() {
         <Nav />
         <Switch>
           <PrivateRoute exact path="/" component={Profile} />
+          <PrivateRoute
+            exact
+            path="/update-profile"
+            component={UpdateProfile}
+          />
           <Route exact path="/signup" component={Signup} />
           <Route exact path="/login" component={Login} />
+          <Route exact path="/forgot-password" component={ForgotPassword} />
         </Switch>
       </AuthProvider>
     </Router>

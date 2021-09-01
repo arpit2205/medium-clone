@@ -4,7 +4,7 @@ import ToggleTheme from "../theme/ToggleTheme";
 
 function Nav() {
   return (
-    <Box mb={10}>
+    <Box mb={[6, 10]}>
       <Flex py={10} px={[5, 10]}>
         <Box>
           {/* <Text

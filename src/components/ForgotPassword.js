@@ -72,6 +72,7 @@ function ForgotPassword() {
             type="email"
             variant="filled"
             value={email}
+            autoComplete="off"
             onChange={(e) => setEmail(e.target.value)}
           />
         </FormControl>

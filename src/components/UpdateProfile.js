@@ -91,6 +91,7 @@ function UpdateProfile() {
             variant="filled"
             value={email}
             placeholder={currentUser.email}
+            autoComplete="off"
             onChange={(e) => setEmail(e.target.value)}
           />
         </FormControl>

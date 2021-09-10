@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, Flex, Text, Spacer } from "@chakra-ui/react";
-import ToggleTheme from "../theme/ToggleTheme";
+import ToggleTheme from "../../theme/ToggleTheme";
 
 function Nav() {
   return (

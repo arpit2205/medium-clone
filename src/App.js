@@ -1,12 +1,15 @@
 import React from "react";
 
-import Nav from "./components/Nav";
-import Signup from "./components/Signup";
-import Login from "./components/Login";
-import Profile from "./components/Profile";
-import PrivateRoute from "./components/PrivateRoute";
-import ForgotPassword from "./components/ForgotPassword";
-import UpdateProfile from "./components/UpdateProfile";
+import Nav from "./components/layout/Nav";
+import Signup from "./components/authentication/Signup";
+import Login from "./components/authentication/Login";
+import Profile from "./components/authentication/Profile";
+import PrivateRoute from "./components/authentication/PrivateRoute";
+import ForgotPassword from "./components/authentication/ForgotPassword";
+import UpdateProfile from "./components/authentication/UpdateProfile";
+
+// Drive routes
+import Dashboard from "./components/home/Dashboard";
 
 import { AuthProvider } from "./contexts/AuthContext";
 
@@ -18,7 +21,8 @@ function App() {
       <AuthProvider>
         <Nav />
         <Switch>
-          <PrivateRoute exact path="/" component={Profile} />
+          <PrivateRoute exact path="/" component={Dashboard} />
+          <PrivateRoute exact path="/user" component={Profile} />
           <PrivateRoute
             exact
             path="/update-profile"

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Box, Text, Button, useToast } from "@chakra-ui/react";
-import { useAuth } from "../contexts/AuthContext";
+import { useAuth } from "../../contexts/AuthContext";
 import { useHistory } from "react-router-dom";
 
 function Profile() {

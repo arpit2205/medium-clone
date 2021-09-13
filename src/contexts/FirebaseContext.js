@@ -26,6 +26,13 @@ export const FirebaseProvider = ({ children }) => {
       .get();
   };
 
+  const getSpecificArticle = (articleID) => {
+    return database
+      .collection("articles")
+      .where("articleID", "==", articleID)
+      .get();
+  };
+
   // const addToDatabase = (data) => {
   //   return database.collection("sample").add(data);
   // };
@@ -41,6 +48,7 @@ export const FirebaseProvider = ({ children }) => {
     postArticle,
     getAllArticles,
     getMyArticles,
+    getSpecificArticle,
   };
 
   return (

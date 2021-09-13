@@ -4,6 +4,8 @@ import LoadingSmall from "../layout/LoadingSmall";
 
 import { useFirebase } from "../../contexts/FirebaseContext";
 
+import { Link } from "react-router-dom";
+
 function SuggestedArticles() {
   const { getAllArticles } = useFirebase();
   const [articles, setArticles] = useState([]);
@@ -34,6 +36,8 @@ function SuggestedArticles() {
               justifyContent="center"
               flexDirection="column"
               alignItems="flex-start"
+              as={Link}
+              to={`/article/${el.articleID}`}
               // boxShadow="md"
               // p={[6, 8]}
               // mb={[4, 6]}

@@ -42,7 +42,7 @@ function WriteArticle() {
         articleID: uuidv4(),
         authorID: currentUser.uid,
         authorEmail: currentUser.email,
-        authorUsername: currentUser.email.split("@")[0],
+        authorUsername: `@${currentUser.email.split("@")[0]}`,
         content: {
           title,
           subtitle,

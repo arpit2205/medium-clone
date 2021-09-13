@@ -9,6 +9,7 @@ import ForgotPassword from "./components/authentication/ForgotPassword";
 import Dashboard from "./components/home/Dashboard";
 import WriteArticle from "./components/home/WriteArticle";
 import MyArticles from "./components/home/MyArticles";
+import ViewArticle from "./components/home/ViewArticle";
 
 import { AuthProvider } from "./contexts/AuthContext";
 import { FirebaseProvider } from "./contexts/FirebaseContext";
@@ -26,6 +27,11 @@ function App() {
             <PrivateRoute exact path="/write" component={WriteArticle} />
             <PrivateRoute exact path="/write" component={WriteArticle} />
             <PrivateRoute exact path="/my-articles" component={MyArticles} />
+            <PrivateRoute
+              exact
+              path="/article/:articleID"
+              component={ViewArticle}
+            />
 
             {/* Authentication routes */}
             <Route exact path="/signup" component={Signup} />

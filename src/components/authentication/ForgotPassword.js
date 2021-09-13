@@ -54,52 +54,68 @@ function ForgotPassword() {
 
   return (
     <Box
-      d="flex"
       w="100%"
+      h="100vh"
+      d="flex"
       justifyContent="center"
-      alignItems="center"
-      textAlign="center"
-      flexDirection="column"
+      alignContent="center"
     >
-      <Box w="90%" maxW="400px" boxShadow="lg" px={6} py={8} rounded="lg">
-        <Text fontSize="2xl" fontWeight="semibold" mb={4}>
-          Reset Password
-        </Text>
+      <Box
+        d="flex"
+        w={["100vw", null, null, "40vw"]}
+        h="100vh"
+        justifyContent="center"
+        alignItems="center"
+        textAlign="center"
+        flexDirection="column"
+      >
+        <Box w="90%" maxW="400px" boxShadow="lg" px={6} py={8} rounded="lg">
+          <Text fontSize="2xl" fontWeight="semibold" mb={4}>
+            Reset Password
+          </Text>
 
-        <FormControl id="email" mt={4} isRequired>
-          <FormLabel>Email address</FormLabel>
-          <Input
-            type="email"
-            variant="filled"
-            value={email}
-            autoComplete="off"
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </FormControl>
+          <FormControl id="email" mt={4} isRequired>
+            <FormLabel>Email address</FormLabel>
+            <Input
+              type="email"
+              variant="filled"
+              value={email}
+              autoComplete="off"
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </FormControl>
 
-        <Button
-          w="100%"
-          mt={4}
-          py={6}
-          colorScheme="blue"
-          onClick={handleSubmit}
-          isLoading={loading}
-        >
-          Reset password
-        </Button>
+          <Button
+            w="100%"
+            mt={4}
+            py={6}
+            colorScheme="blue"
+            onClick={handleSubmit}
+            isLoading={loading}
+          >
+            Reset password
+          </Button>
 
+          <Text mt={6} fontWeight="normal" fontSize="lg">
+            <Link to="/login">
+              <ChakraLink color="blue.400">Login</ChakraLink>
+            </Link>
+          </Text>
+        </Box>
         <Text mt={6} fontWeight="normal" fontSize="lg">
-          <Link to="/login">
-            <ChakraLink color="blue.400">Login</ChakraLink>
+          Don't have an account?{" "}
+          <Link to="/signup">
+            <ChakraLink color="blue.400">Sign up</ChakraLink>
           </Link>
         </Text>
       </Box>
-      <Text mt={6} fontWeight="normal" fontSize="lg">
-        Don't have an account?{" "}
-        <Link to="/signup">
-          <ChakraLink color="blue.400">Sign up</ChakraLink>
-        </Link>
-      </Text>
+
+      <Box
+        w={["0vw", null, null, "60vw"]}
+        h="100%"
+        bgGradient="linear(to-br, blue.500, blue.400)"
+        boxShadow="2xl"
+      ></Box>
     </Box>
   );
 }

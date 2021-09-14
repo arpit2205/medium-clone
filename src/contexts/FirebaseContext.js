@@ -41,6 +41,17 @@ export const FirebaseProvider = ({ children }) => {
       .update({ stars: firebase.firestore.FieldValue.increment(1) });
   };
 
+  const postComment = (data) => {
+    return database.collection("comments").add(data);
+  };
+
+  const getComments = (articleID) => {
+    return database
+      .collection("comments")
+      .where("articleID", "==", articleID)
+      .get();
+  };
+
   // const addToDatabase = (data) => {
   //   return database.collection("sample").add(data);
   // };
@@ -58,6 +69,8 @@ export const FirebaseProvider = ({ children }) => {
     getMyArticles,
     getSpecificArticle,
     giveAStar,
+    postComment,
+    getComments,
   };
 
   return (

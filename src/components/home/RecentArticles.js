@@ -22,6 +22,11 @@ function SuggestedArticles() {
     setLoading(false);
   }, []);
 
+  const getDate = (timestamp) => {
+    const d = new Date(timestamp);
+    return d.toString();
+  };
+
   return (
     <Box mx={["6", "10"]}>
       <Text fontSize={["2xl", "3xl"]}>Recently posted articles</Text>
@@ -43,16 +48,19 @@ function SuggestedArticles() {
               // mb={[4, 6]}
               // rounded="lg"
             >
-              <Text fontSize={["md", "lg"]} color="blue.500">
-                {el.authorUsername}
-              </Text>
               <Text fontSize={["xl", "2xl"]}>{el.content.title}</Text>
-              <Text fontSize={["lg", "xl"]} opacity="0.5">
+              <Text fontSize={["lg", "xl"]} opacity="0.8">
                 {el.content.subtitle}
               </Text>
-              <Text fontSize={["sm", "md"]} fontWeight="light" mt="2">
-                {el.when}
-              </Text>
+              <Box d="flex" mt="4">
+                <Text fontSize={["md", "lg"]} mr="2" color="blue.500">
+                  {el.authorUsername}
+                </Text>
+                <Text fontSize={["md", "lg"]} opacity="0.6" fontWeight="light">
+                  {getDate(el.when)}
+                </Text>
+              </Box>
+
               <Divider my="6" />
             </Box>
           ))}

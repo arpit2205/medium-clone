@@ -49,7 +49,7 @@ function WriteArticle() {
           articleContent,
         },
         when: Date.now(),
-        claps: 0,
+        stars: 0,
       });
 
       toast({
@@ -85,7 +85,7 @@ function WriteArticle() {
           Write your heart out!
         </Text>
         <Text fontSize={["sm", "md"]} textAlign="center" color="blue.500">
-          writing as {currentUser.email.split("@")[0]}
+          writing as {`@${currentUser.email.split("@")[0]}`}
         </Text>
 
         <Textarea

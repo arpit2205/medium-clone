@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext, createContext } from "react";
 import { database } from "../firebase";
 import { useAuth } from "./AuthContext";
+import firebase from "firebase";
 
 const FirebaseContext = createContext();
 
@@ -33,6 +34,13 @@ export const FirebaseProvider = ({ children }) => {
       .get();
   };
 
+  const giveAStar = (docID) => {
+    return database
+      .collection("articles")
+      .doc(docID)
+      .update({ stars: firebase.firestore.FieldValue.increment(1) });
+  };
+
   // const addToDatabase = (data) => {
   //   return database.collection("sample").add(data);
   // };
@@ -49,6 +57,7 @@ export const FirebaseProvider = ({ children }) => {
     getAllArticles,
     getMyArticles,
     getSpecificArticle,
+    giveAStar,
   };
 
   return (

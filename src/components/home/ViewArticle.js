@@ -213,12 +213,8 @@ function ViewArticle() {
                 >
                   Give a star
                 </Button>
-                <Button
-                  rightIcon={<ArrowRightIcon />}
-                  onClick={handleShareArticle}
-                  colorScheme="blue"
-                >
-                  Share article
+                <Button onClick={handleShareArticle} colorScheme="blue">
+                  Share
                 </Button>
               </Box>
 

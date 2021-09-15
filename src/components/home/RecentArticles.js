@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Box, Text, Divider } from "@chakra-ui/react";
+import { StarIcon } from "@chakra-ui/icons";
 import LoadingSmall from "../layout/LoadingSmall";
 
 import { useFirebase } from "../../contexts/FirebaseContext";
@@ -53,11 +54,27 @@ function SuggestedArticles() {
                 {el.content.subtitle}
               </Text>
               <Box d="flex" mt="4">
+                <Box
+                  d="flex"
+                  flexDirection="row"
+                  alignItems="center"
+                  mr="2"
+                  // mt={[2, null, 0]}
+                >
+                  <Text
+                    fontWeight="semibold"
+                    color="yellow.500"
+                    fontSize={["md", "lg"]}
+                  >
+                    {el.stars}
+                  </Text>
+                  <StarIcon color="yellow.500" fontSize={["md", "lg"]} ml="2" />
+                </Box>
                 <Text fontSize={["md", "lg"]} mr="2" color="blue.500">
                   {el.authorUsername}
                 </Text>
                 <Text fontSize={["md", "lg"]} opacity="0.6" fontWeight="light">
-                  {getDate(el.when)}
+                  {getDate(el.when).slice(4, 21)}
                 </Text>
               </Box>
 

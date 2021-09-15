@@ -9,7 +9,7 @@ import {
   Button,
   Input,
 } from "@chakra-ui/react";
-import { StarIcon, AddIcon } from "@chakra-ui/icons";
+import { StarIcon, AddIcon, ArrowRightIcon } from "@chakra-ui/icons";
 import Nav from "../layout/Nav";
 import LoadingSmall from "../layout/LoadingSmall";
 
@@ -83,6 +83,15 @@ function ViewArticle() {
   };
 
   const handlePostComment = async () => {
+    if (!comment) {
+      toast({
+        title: "Cannot post empty comment",
+        status: "error",
+        duration: 5000,
+      });
+      return;
+    }
+
     try {
       const data = {
         comment: comment,
@@ -114,6 +123,22 @@ function ViewArticle() {
     setCommentBtnLoading(false);
   };
 
+  const handleShareArticle = async () => {
+    // const navigator = new Navigator();
+    // navigator.share(window.location.href + "");
+
+    const data = {
+      title: article[0].content.title,
+      URL: window.location.href,
+    };
+
+    try {
+      await navigator.share(data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const getDate = (timestamp) => {
     const d = new Date(timestamp);
     return d.toString();
@@ -143,7 +168,7 @@ function ViewArticle() {
                   {el.authorUsername}
                 </Text>
                 <Text opacity="0.5" fontSize={["lg", "xl"]}>
-                  {getDate(el.when)}
+                  {getDate(el.when).slice(4, 21)}
                 </Text>
                 <Spacer />
                 <Box
@@ -170,19 +195,27 @@ function ViewArticle() {
               <Divider my="6" />
 
               <Box d="flex">
-                <Spacer />
+                {/* <Spacer d={["none", null, "block"]} /> */}
                 <Button
                   rightIcon={<StarIcon />}
                   colorScheme="yellow"
                   variant="solid"
                   onClick={handleGiveAStar}
                   isLoading={starBtnLoading}
+                  mr="2"
                 >
                   Give a star
                 </Button>
+                <Button
+                  rightIcon={<ArrowRightIcon />}
+                  onClick={handleShareArticle}
+                  colorScheme="blue"
+                >
+                  Share article
+                </Button>
               </Box>
 
-              <Box mt="6">
+              <Box mt="10">
                 <Text fontSize={["2xl", "3xl"]}>Comments</Text>
                 <Box d="flex" mt="6">
                   <Input
@@ -203,11 +236,11 @@ function ViewArticle() {
                 {comments.map((el) => (
                   <Box mt="6">
                     <Box d="flex" mb="1">
-                      <Text color="blue.500" fontSize={["lg", "xl"]} mr="2">
+                      <Text color="blue.500" fontSize={["md", "lg"]} mr="2">
                         {el.autherUsername}
                       </Text>
-                      <Text opacity="0.5" fontSize={["lg", "xl"]}>
-                        {el.when}
+                      <Text opacity="0.5" fontSize={["md", "lg"]}>
+                        {getDate(el.when).slice(4, 21)}
                       </Text>
                     </Box>
                     <Text fontSize={["lg", "xl"]} mr="2">

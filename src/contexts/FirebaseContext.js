@@ -17,13 +17,14 @@ export const FirebaseProvider = ({ children }) => {
   };
 
   const getAllArticles = () => {
-    return database.collection("articles").get();
+    return database.collection("articles").orderBy("when", "desc").get();
   };
 
   const getMyArticles = () => {
     return database
       .collection("articles")
       .where("authorID", "==", currentUser.uid)
+      .orderBy("when", "desc")
       .get();
   };
 
@@ -49,6 +50,7 @@ export const FirebaseProvider = ({ children }) => {
     return database
       .collection("comments")
       .where("articleID", "==", articleID)
+      .orderBy("when", "desc")
       .get();
   };
 

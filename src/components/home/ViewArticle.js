@@ -123,20 +123,27 @@ function ViewArticle() {
     setCommentBtnLoading(false);
   };
 
-  const handleShareArticle = async () => {
+  const handleShareArticle = () => {
     // const navigator = new Navigator();
     // navigator.share(window.location.href + "");
+    // console.log(window.location.href);
 
-    const data = {
-      title: article[0].content.title,
-      URL: window.location.href,
-    };
+    // const data = {
+    //   title: article[0].content.title,
+    //   URL: window.location.href,
+    // };
 
-    try {
-      await navigator.share(data);
-    } catch (err) {
-      console.log(err);
-    }
+    // try {
+    //   await navigator.share(data);
+    // } catch (err) {
+    //   console.log(err);
+    // }
+    navigator.clipboard.writeText(window.location.href);
+    toast({
+      title: "Article link copied to clipboard",
+      status: "success",
+      duration: 5000,
+    });
   };
 
   const getDate = (timestamp) => {

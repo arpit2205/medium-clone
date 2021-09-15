@@ -220,7 +220,7 @@ function ViewArticle() {
 
               <Box mt="10">
                 <Text fontSize={["2xl", "3xl"]}>Comments</Text>
-                <Box d="flex" mt="6">
+                <Box d="flex" mt="6" mb="6">
                   <Input
                     variant="unstyled"
                     placeholder="Write your comment here"

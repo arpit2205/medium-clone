@@ -50,7 +50,7 @@ export const FirebaseProvider = ({ children }) => {
     return database
       .collection("comments")
       .where("articleID", "==", articleID)
-      .orderBy("when", "desc")
+      .orderBy("when")
       .get();
   };
 

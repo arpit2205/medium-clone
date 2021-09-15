@@ -54,6 +54,10 @@ export const FirebaseProvider = ({ children }) => {
       .get();
   };
 
+  const deleteArticle = (docID) => {
+    return database.collection("articles").doc(docID).delete();
+  };
+
   // const addToDatabase = (data) => {
   //   return database.collection("sample").add(data);
   // };
@@ -73,6 +77,7 @@ export const FirebaseProvider = ({ children }) => {
     giveAStar,
     postComment,
     getComments,
+    deleteArticle,
   };
 
   return (

@@ -15,57 +15,57 @@ function Dashboard() {
   const { currentUser } = useAuth();
 
   return (
-    // <Box d="flex" justifyContent="center" alignItems="center">
-    <Box
-      w={["100vw", null, null, "70vw"]}
-      d="flex"
-      justifyContent="center"
-      flexDirection="column"
-    >
-      <Nav />
+    <Box d="flex" justifyContent="center" alignItems="center">
+      <Box
+        w={["100vw", null, null, "70vw"]}
+        d="flex"
+        justifyContent="center"
+        flexDirection="column"
+      >
+        <Nav />
 
-      <Box px={["6", "10"]}>
-        <Box
-          d="flex"
-          justifyContent="space-between"
-          flexDirection={["column-reverse", null, "row"]}
-        >
+        <Box px={["6", "10"]}>
           <Box
             d="flex"
-            justifyContent="center"
-            alignItems="flex-start"
-            flexDirection="column"
+            justifyContent="space-between"
+            flexDirection={["column-reverse", null, "row"]}
           >
-            <Text fontSize={["4xl", "5xl"]} mt={["6", null, "none"]}>
-              A place to write, read, and connect
-            </Text>
-            <Text fontSize={["lg", "xl"]} mt="4">
-              It's easy and free to post your thinking on any topic and connect
-              with millions of readers.
-            </Text>
-
-            <Button
-              as={Link}
-              to="/write"
-              colorScheme="blue"
-              isFullWidth
-              py="8"
-              mt="6"
-              fontSize="xl"
+            <Box
+              d="flex"
+              justifyContent="center"
+              alignItems="flex-start"
+              flexDirection="column"
             >
-              Start writing
-            </Button>
-          </Box>
-          <Box px="8" d="flex" justifyContent="center" alignItems="center">
-            <Image src={treeSwingImage} />
-          </Box>
-        </Box>
-        <Divider my={["10", "16"]} />
-      </Box>
+              <Text fontSize={["4xl", "5xl"]} mt={["6", null, "none"]}>
+                A place to write, read, and connect
+              </Text>
+              <Text fontSize={["lg", "xl"]} mt="4">
+                It's easy and free to post your thinking on any topic and
+                connect with millions of readers.
+              </Text>
 
-      <RecentArticles />
+              <Button
+                as={Link}
+                to="/write"
+                colorScheme="blue"
+                isFullWidth
+                py="8"
+                mt="6"
+                fontSize="xl"
+              >
+                Start writing
+              </Button>
+            </Box>
+            <Box px="8" d="flex" justifyContent="center" alignItems="center">
+              <Image src={treeSwingImage} />
+            </Box>
+          </Box>
+          <Divider my={["10", "16"]} />
+        </Box>
+
+        <RecentArticles />
+      </Box>
     </Box>
-    // </Box>
   );
 }
 

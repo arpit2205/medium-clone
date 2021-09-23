@@ -53,7 +53,7 @@ function Nav() {
 
   return (
     <>
-      <SideBar />
+      {/* <SideBar /> */}
       <Box py="10" px={["6", "10"]} w="100%">
         <Flex justify="center">
           <Text

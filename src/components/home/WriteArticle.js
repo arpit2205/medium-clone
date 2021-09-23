@@ -72,80 +72,82 @@ function WriteArticle() {
   };
 
   return (
-    <Box
-      w={["100vw", null, null, "70vw"]}
-      d="flex"
-      justifyContent="center"
-      flexDirection="column"
-    >
-      <Nav />
+    <Box d="flex" justifyContent="center" alignItems="center">
+      <Box
+        w={["100vw", null, null, "70vw"]}
+        d="flex"
+        justifyContent="center"
+        flexDirection="column"
+      >
+        <Nav />
 
-      <Box px={["6", "10"]}>
-        <Text fontSize={["2xl", "3xl"]} textAlign="center">
-          Write your heart out!
-        </Text>
-        <Text fontSize={["sm", "md"]} textAlign="center" color="blue.500">
-          writing as {`@${currentUser.email.split("@")[0]}`}
-        </Text>
+        <Box px={["6", "10"]}>
+          <Text fontSize={["2xl", "3xl"]} textAlign="center">
+            Write your heart out!
+          </Text>
+          <Text fontSize={["sm", "md"]} textAlign="center" color="blue.500">
+            writing as {`@${currentUser.email.split("@")[0]}`}
+          </Text>
 
-        <Textarea
-          variant="unstyled"
-          placeholder="Title"
-          fontSize={["4xl", "5xl"]}
-          mt="10"
-          resize="vertical"
-          rows={1}
-          onChange={(e) => setTitle(e.target.value)}
-        />
-        <Textarea
-          variant="unstyled"
-          placeholder="Subtitle"
-          fontSize={["xl", "2xl"]}
-          resize="vertical"
-          rows={1}
-          onChange={(e) => setSubtitle(e.target.value)}
-        />
+          <Textarea
+            variant="unstyled"
+            placeholder="Title"
+            fontSize={["4xl", "5xl"]}
+            mt="10"
+            resize="vertical"
+            rows={1}
+            onChange={(e) => setTitle(e.target.value)}
+          />
+          <Textarea
+            variant="unstyled"
+            placeholder="Subtitle"
+            fontSize={["xl", "2xl"]}
+            resize="vertical"
+            rows={1}
+            onChange={(e) => setSubtitle(e.target.value)}
+          />
 
-        <Divider my="10" />
+          <Divider my="10" />
 
-        <Textarea
-          variant="unstyled"
-          placeholder="Write your story here"
-          fontSize={["md", "lg"]}
-          resize="vertical"
-          onChange={(e) => setArticleContent(e.target.value)}
-          rows={8}
-        />
-
-        <Box
-          d="flex"
-          justifyContent="center"
-          alignItems="center"
-          flexDirection={["column-reverse", null, "row"]}
-          my="6"
-        >
-          <Button
+          <Textarea
+            variant="unstyled"
+            placeholder="Write your story here"
             fontSize={["md", "lg"]}
-            py={8}
-            isFullWidth
-            variant="ghost"
-            mr={["0", "0", "4"]}
-            mt={["4", "0"]}
-            as={Link}
-            to="/"
+            resize="vertical"
+            onChange={(e) => setArticleContent(e.target.value)}
+            rows={8}
+          />
+
+          <Box
+            d="flex"
+            justifyContent="center"
+            alignItems="center"
+            flexDirection={["column-reverse", null, "row"]}
+            my="6"
           >
-            Discard
-          </Button>
-          <Button
-            fontSize={["md", "lg"]}
-            py={8}
-            isFullWidth
-            colorScheme="blue"
-            onClick={handlePost}
-            isLoading={loading}
-          >
-            Post
-          </Button>
+            <Button
+              fontSize={["md", "lg"]}
+              py={8}
+              isFullWidth
+              variant="ghost"
+              mr={["0", "0", "4"]}
+              mt={["4", "0"]}
+              as={Link}
+              to="/"
+            >
+              Discard
+            </Button>
+            <Button
+              fontSize={["md", "lg"]}
+              py={8}
+              isFullWidth
+              colorScheme="blue"
+              onClick={handlePost}
+              isLoading={loading}
+            >
+              Post
+            </Button>
+          </Box>
         </Box>
       </Box>
     </Box>

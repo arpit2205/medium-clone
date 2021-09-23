@@ -58,6 +58,14 @@ export const FirebaseProvider = ({ children }) => {
     return database.collection("articles").doc(docID).delete();
   };
 
+  const editArticle = (docID, data) => {
+    return database.collection("articles").doc(docID).update({
+      "content.title": data.title,
+      "content.subtitle": data.subtitle,
+      "content.articleContent": data.articleContent,
+    });
+  };
+
   // const addToDatabase = (data) => {
   //   return database.collection("sample").add(data);
   // };
@@ -78,6 +86,7 @@ export const FirebaseProvider = ({ children }) => {
     postComment,
     getComments,
     deleteArticle,
+    editArticle,
   };
 
   return (

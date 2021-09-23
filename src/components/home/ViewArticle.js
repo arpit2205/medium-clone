@@ -8,7 +8,7 @@ import {
   Button,
   Spinner,
 } from "@chakra-ui/react";
-import { StarIcon } from "@chakra-ui/icons";
+import { StarIcon, LinkIcon } from "@chakra-ui/icons";
 import Nav from "../layout/Nav";
 import LoadingSmall from "../layout/LoadingSmall";
 
@@ -73,77 +73,87 @@ function ViewArticle() {
   };
 
   return (
-    <Box
-      w={["100vw", null, null, "70vw"]}
-      d="flex"
-      justifyContent="center"
-      flexDirection="column"
-    >
-      <Nav />
-      {loading ? (
-        <LoadingSmall />
-      ) : (
-        <>
-          {article.map((el) => (
-            <Box px={["6", "10"]}>
-              <Text fontSize={["4xl", "5xl"]}>{el.content.title}</Text>
-              <Text fontSize={["xl", "2xl"]} opacity="0.8">
-                {el.content.subtitle}
-              </Text>
+    <Box d="flex" justifyContent="center" alignItems="center">
+      <Box
+        w={["100vw", null, null, "70vw"]}
+        d="flex"
+        justifyContent="center"
+        flexDirection="column"
+      >
+        <Nav />
+        {loading ? (
+          <LoadingSmall />
+        ) : (
+          <>
+            {article.map((el) => (
+              <Box px={["6", "10"]}>
+                <Text fontSize={["4xl", "5xl"]}>{el.content.title}</Text>
+                <Text fontSize={["xl", "2xl"]} opacity="0.8">
+                  {el.content.subtitle}
+                </Text>
 
-              <Box d="flex" mt="6" flexDirection={["column", null, "row"]}>
-                <Text color="blue.500" fontSize={["lg", "xl"]} mr="4">
-                  {el.authorUsername}
-                </Text>
-                <Text opacity="0.5" fontSize={["lg", "xl"]}>
-                  {getDate(el.when).slice(4, 21)}
-                </Text>
-                <Spacer />
-                <Box
-                  d="flex"
-                  flexDirection="row"
-                  alignItems="center"
-                  mt={[2, null, 0]}
-                >
-                  <Text
-                    fontWeight="semibold"
-                    color="yellow.500"
-                    fontSize={["lg", "xl"]}
-                  >
-                    {el.stars}
+                <Box d="flex" mt="6" flexDirection={["column", null, "row"]}>
+                  <Text color="blue.500" fontSize={["lg", "xl"]} mr="4">
+                    {el.authorUsername}
                   </Text>
-                  <StarIcon color="yellow.500" fontSize={["lg", "xl"]} mx="2" />
+                  <Text opacity="0.5" fontSize={["lg", "xl"]}>
+                    {getDate(el.when).slice(4, 21)}
+                  </Text>
+                  <Spacer />
+                  <Box
+                    d="flex"
+                    flexDirection="row"
+                    alignItems="center"
+                    mt={[2, null, 0]}
+                  >
+                    <Text
+                      fontWeight="semibold"
+                      color="yellow.500"
+                      fontSize={["lg", "xl"]}
+                    >
+                      {el.stars}
+                    </Text>
+                    <StarIcon
+                      color="yellow.500"
+                      fontSize={["lg", "xl"]}
+                      mx="2"
+                    />
+                  </Box>
                 </Box>
+
+                <Divider my="6" />
+
+                <Text fontSize={["lg", "xl"]}>{el.content.articleContent}</Text>
+
+                <Divider my="6" />
+
+                <Box d="flex">
+                  {/* <Spacer d={["none", null, "block"]} /> */}
+                  <Button
+                    rightIcon={<StarIcon />}
+                    colorScheme="yellow"
+                    variant="solid"
+                    onClick={handleGiveAStar}
+                    isLoading={starBtnLoading}
+                    mr="2"
+                  >
+                    Give a star
+                  </Button>
+                  <Button
+                    rightIcon={<LinkIcon />}
+                    onClick={handleShareArticle}
+                    colorScheme="blue"
+                  >
+                    Share
+                  </Button>
+                </Box>
+
+                <Comments />
               </Box>
-
-              <Divider my="6" />
-
-              <Text fontSize={["lg", "xl"]}>{el.content.articleContent}</Text>
-
-              <Divider my="6" />
-
-              <Box d="flex">
-                {/* <Spacer d={["none", null, "block"]} /> */}
-                <Button
-                  rightIcon={<StarIcon />}
-                  colorScheme="yellow"
-                  variant="solid"
-                  onClick={handleGiveAStar}
-                  isLoading={starBtnLoading}
-                  mr="2"
-                >
-                  Give a star
-                </Button>
-                <Button onClick={handleShareArticle} colorScheme="blue">
-                  Share
-                </Button>
-              </Box>
-
-              <Comments />
-            </Box>
-          ))}
-        </>
-      )}
+            ))}
+          </>
+        )}
+      </Box>
     </Box>
   );
 }

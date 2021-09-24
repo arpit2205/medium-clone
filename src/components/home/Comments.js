@@ -9,7 +9,7 @@ import {
   Button,
   Input,
 } from "@chakra-ui/react";
-import { StarIcon, AddIcon } from "@chakra-ui/icons";
+import { StarIcon, AddIcon, DeleteIcon } from "@chakra-ui/icons";
 import Nav from "../layout/Nav";
 import LoadingSmall from "../layout/LoadingSmall";
 
@@ -18,21 +18,37 @@ import { useAuth } from "../../contexts/AuthContext";
 
 const Comments = () => {
   const articleIDFromURL = window.location.href.split("/").pop();
-  const { postComment, getComments } = useFirebase();
+  const { postComment, getComments, getSpecificArticle, deleteComment } =
+    useFirebase();
   const { currentUser } = useAuth();
   const [loading, setLoading] = useState(false);
   const [commentBtnLoading, setCommentBtnLoading] = useState(false);
 
   const [comment, setComment] = useState("");
   const [comments, setComments] = useState([]);
+  const [article, setArticle] = useState([]);
+  const [commentsDocIDs, setCommentsDocIds] = useState([]);
 
   const toast = useToast();
+
+  const fetchArticle = async () => {
+    try {
+      setLoading(true);
+      const data = await getSpecificArticle(articleIDFromURL);
+      setArticle(data.docs.map((el) => el.data()));
+    } catch (err) {
+      console.log(err);
+    }
+
+    setLoading(false);
+  };
 
   const fetchComments = async () => {
     try {
       setLoading(true);
       const data = await getComments(articleIDFromURL);
       setComments(data.docs.map((el) => el.data()));
+      setCommentsDocIds(data.docs.map((el) => el.id));
     } catch (err) {
       console.log(err);
       toast({
@@ -46,6 +62,7 @@ const Comments = () => {
   };
 
   useEffect(fetchComments, []);
+  useEffect(fetchArticle, []);
 
   const handlePostComment = async () => {
     if (!comment) {
@@ -88,6 +105,25 @@ const Comments = () => {
     setCommentBtnLoading(false);
   };
 
+  const handleDeleteComment = async (docID) => {
+    try {
+      await deleteComment(docID);
+      toast({
+        title: "Comment deleted",
+        status: "success",
+        duration: 5000,
+      });
+      fetchComments();
+    } catch (err) {
+      console.log(err);
+      toast({
+        title: "Failed to delete comment",
+        status: "error",
+        duration: 5000,
+      });
+    }
+  };
+
   const getDate = (timestamp) => {
     const d = new Date(timestamp);
     return d.toString();
@@ -114,15 +150,31 @@ const Comments = () => {
         />
       </Box>
 
-      {comments.map((el) => (
+      {comments.map((el, i) => (
         <Box mt="6">
-          <Box d="flex" mb="1">
+          <Box d="flex" mb="1" justifyContent="center" alignItems="center">
             <Text color="blue.500" fontSize={["md", "lg"]} mr="2">
               {el.autherUsername}
             </Text>
             <Text opacity="0.5" fontSize={["md", "lg"]}>
               {getDate(el.when).slice(4, 21)}
             </Text>
+
+            <Spacer />
+
+            {el.authorID === currentUser.uid ||
+            (article[0] && article[0].authorID === currentUser.uid) ? (
+              <IconButton
+                icon={<DeleteIcon />}
+                variant="ghost"
+                colorScheme="red"
+                onClick={() => {
+                  handleDeleteComment(commentsDocIDs[i]);
+                }}
+              />
+            ) : (
+              ""
+            )}
           </Box>
           <Text fontSize={["lg", "xl"]} mr="2">
             {el.comment}

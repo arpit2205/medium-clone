@@ -66,6 +66,10 @@ export const FirebaseProvider = ({ children }) => {
     });
   };
 
+  const deleteComment = (docID) => {
+    return database.collection("comments").doc(docID).delete();
+  };
+
   // const addToDatabase = (data) => {
   //   return database.collection("sample").add(data);
   // };
@@ -87,6 +91,7 @@ export const FirebaseProvider = ({ children }) => {
     getComments,
     deleteArticle,
     editArticle,
+    deleteComment,
   };
 
   return (

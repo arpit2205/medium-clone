@@ -166,12 +166,21 @@ function EditArticle() {
                 <Divider my={[6, 10]} />
 
                 <Box d="flex" flexDirection="column">
-                  <Box d="flex" justifyContent="flex-start" alignItems="center">
-                    <Text fontSize={["xl", "2xl"]} mr="4">
+                  <Box
+                    d="flex"
+                    flexDirection={["column", null, "row"]}
+                    justifyContent="flex-start"
+                    alignItems={[null, null, "center"]}
+                  >
+                    <Text fontSize={["xl", "2xl"]} mr="4" mb={[2, 2, 0]}>
                       Choose your article's visibility
                     </Text>
 
-                    <RadioGroup onChange={setVisibility} value={visibility}>
+                    <RadioGroup
+                      onChange={setVisibility}
+                      value={visibility}
+                      mb={[2, 2, 0]}
+                    >
                       <Stack direction="row">
                         <Radio mr="2" isChecked={true} size="lg" value="public">
                           Public

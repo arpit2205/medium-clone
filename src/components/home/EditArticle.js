@@ -6,6 +6,9 @@ import {
   Divider,
   Button,
   useToast,
+  Radio,
+  RadioGroup,
+  Stack,
 } from "@chakra-ui/react";
 
 import Nav from "../layout/Nav";
@@ -28,6 +31,7 @@ function EditArticle() {
   const [loading, setLoading] = useState(false);
   const [btnLoading, setBtnLoading] = useState(false);
   const [docId, setDocId] = useState("");
+  const [visibility, setVisibility] = useState("");
   const toast = useToast();
   const history = useHistory();
 
@@ -42,6 +46,7 @@ function EditArticle() {
       setArticleContent(
         data.docs.map((el) => el.data())[0].content.articleContent
       );
+      setVisibility(data.docs.map((el) => el.data())[0].visibility);
     } catch (err) {
       console.log(err);
       toast({
@@ -69,6 +74,7 @@ function EditArticle() {
       title: title,
       subtitle: subtitle,
       articleContent: articleContent,
+      visibility: visibility,
     };
 
     try {
@@ -95,51 +101,6 @@ function EditArticle() {
 
     setBtnLoading(false);
   };
-
-  // const handleEdit = async () => {
-  //   if (!title || !subtitle || !articleContent) {
-  //     toast({
-  //       title: "Please fill all fields",
-  //       status: "error",
-  //       duration: 5000,
-  //     });
-  //     return;
-  //   }
-
-  //   try {
-  //     setLoading(true);
-  //     await postArticle({
-  //       articleID: uuidv4(),
-  //       authorID: currentUser.uid,
-  //       authorEmail: currentUser.email,
-  //       authorUsername: `@${currentUser.email.split("@")[0]}`,
-  //       content: {
-  //         title,
-  //         subtitle,
-  //         articleContent,
-  //       },
-  //       when: Date.now(),
-  //       stars: 0,
-  //     });
-
-  //     toast({
-  //       title: "Article posted",
-  //       status: "success",
-  //       duration: 5000,
-  //     });
-
-  //     history.push("/");
-  //   } catch (err) {
-  //     console.log(err);
-  //     toast({
-  //       title: "Failed to post article",
-  //       status: "error",
-  //       duration: 5000,
-  //     });
-  //   }
-
-  //   setLoading(false);
-  // };
 
   return (
     <Box d="flex" justifyContent="center" alignItems="center">
@@ -188,7 +149,7 @@ function EditArticle() {
                   onChange={(e) => setSubtitle(e.target.value)}
                 />
 
-                <Divider my="10" />
+                <Divider my={[6, 10]} />
 
                 <Textarea
                   variant="unstyled"
@@ -200,18 +161,49 @@ function EditArticle() {
                   rows={8}
                 />
 
+                {/* ///////////////////// */}
+
+                <Divider my={[6, 10]} />
+
+                <Box d="flex" flexDirection="column">
+                  <Box d="flex" justifyContent="flex-start" alignItems="center">
+                    <Text fontSize={["xl", "2xl"]} mr="4">
+                      Choose your article's visibility
+                    </Text>
+
+                    <RadioGroup onChange={setVisibility} value={visibility}>
+                      <Stack direction="row">
+                        <Radio mr="2" isChecked={true} size="lg" value="public">
+                          Public
+                        </Radio>
+                        <Radio size="lg" value="private">
+                          Private
+                        </Radio>
+                      </Stack>
+                    </RadioGroup>
+                  </Box>
+                  <Text fontSize={["sm", "md"]} opacity="0.4" mb="2">
+                    {visibility === "private"
+                      ? "Your article will not be shared with the community. It will be visible only to you. You can change it later anytime."
+                      : "Your article will be shared with the community and anyone could read it. You can change it later anytime."}
+                  </Text>
+                </Box>
+
+                {/* //////////////////////// */}
+
                 <Box
                   d="flex"
                   justifyContent="center"
                   alignItems="center"
                   flexDirection={["column-reverse", null, "row"]}
                   my="6"
+                  mb={[6, 6, 10]}
                 >
                   <Button
                     fontSize={["md", "lg"]}
                     py={8}
                     isFullWidth
-                    variant="ghost"
+                    // variant="ghost"
                     mr={["0", "0", "4"]}
                     mt={["4", "0"]}
                     as={Link}

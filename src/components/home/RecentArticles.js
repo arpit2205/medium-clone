@@ -8,14 +8,14 @@ import { useFirebase } from "../../contexts/FirebaseContext";
 import { Link } from "react-router-dom";
 
 function SuggestedArticles() {
-  const { getAllArticles } = useFirebase();
+  const { getAllPublicArticles } = useFirebase();
   const [articles, setArticles] = useState([]);
   const [loading, setLoading] = useState(false);
 
   useEffect(async () => {
     try {
       setLoading(true);
-      const data = await getAllArticles();
+      const data = await getAllPublicArticles();
       setArticles(data.docs.map((el) => el.data()));
     } catch (err) {
       console.log(err);

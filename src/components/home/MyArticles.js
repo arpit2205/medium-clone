@@ -7,8 +7,15 @@ import {
   Spacer,
   Button,
   useToast,
+  Badge,
 } from "@chakra-ui/react";
-import { StarIcon, DeleteIcon, EditIcon } from "@chakra-ui/icons";
+import {
+  StarIcon,
+  DeleteIcon,
+  EditIcon,
+  LockIcon,
+  UnlockIcon,
+} from "@chakra-ui/icons";
 import Nav from "../layout/Nav";
 import LoadingSmall from "../layout/LoadingSmall";
 
@@ -93,36 +100,62 @@ function MyArticles() {
                       alignItems="flex-start"
                       as={Link}
                       to={`/article/${el.articleID}`}
+
                       // boxShadow="md"
                       // p={[6, 8]}
                       //   mb={[4, 6]}
                       // rounded="lg"
                     >
+                      {el.visibility === "private" ? (
+                        <Badge
+                          variant="solid"
+                          fontSize={["sm", "sm"]}
+                          colorScheme="blue"
+                          mb="2"
+                        >
+                          Private {<LockIcon mb="1" ml="1" />}
+                        </Badge>
+                      ) : (
+                        <Badge
+                          variant="solid"
+                          fontSize={["sm", "sm"]}
+                          colorScheme="green"
+                          mb="2"
+                        >
+                          Public
+                        </Badge>
+                      )}
                       <Text fontSize={["xl", "2xl"]}>{el.content.title}</Text>
                       <Text fontSize={["lg", "xl"]} opacity="0.5">
                         {el.content.subtitle}
                       </Text>
                       <Box d="flex" mt="4">
-                        <Box
-                          d="flex"
-                          flexDirection="row"
-                          alignItems="center"
-                          mr="2"
-                          // mt={[2, null, 0]}
-                        >
-                          <Text
-                            fontWeight="semibold"
-                            color="yellow.500"
-                            fontSize={["md", "lg"]}
-                          >
-                            {el.stars}
-                          </Text>
-                          <StarIcon
-                            color="yellow.500"
-                            fontSize={["md", "lg"]}
-                            ml="2"
-                          />
-                        </Box>
+                        {el.visibility === "private" ? (
+                          ""
+                        ) : (
+                          <>
+                            <Box
+                              d="flex"
+                              flexDirection="row"
+                              alignItems="center"
+                              mr="2"
+                              // mt={[2, null, 0]}
+                            >
+                              <Text
+                                fontWeight="semibold"
+                                color="yellow.500"
+                                fontSize={["md", "lg"]}
+                              >
+                                {el.stars}
+                              </Text>
+                              <StarIcon
+                                color="yellow.500"
+                                fontSize={["md", "lg"]}
+                                ml="2"
+                              />
+                            </Box>
+                          </>
+                        )}
                         <Text fontSize={["md", "lg"]} mr="2" color="blue.500">
                           {el.authorUsername}
                         </Text>

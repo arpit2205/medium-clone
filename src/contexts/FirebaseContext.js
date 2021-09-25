@@ -16,8 +16,12 @@ export const FirebaseProvider = ({ children }) => {
     return database.collection("articles").add(data);
   };
 
-  const getAllArticles = () => {
-    return database.collection("articles").orderBy("when", "desc").get();
+  const getAllPublicArticles = () => {
+    return database
+      .collection("articles")
+      .where("visibility", "==", "public")
+      .orderBy("when", "desc")
+      .get();
   };
 
   const getMyArticles = () => {
@@ -63,6 +67,7 @@ export const FirebaseProvider = ({ children }) => {
       "content.title": data.title,
       "content.subtitle": data.subtitle,
       "content.articleContent": data.articleContent,
+      visibility: data.visibility,
     });
   };
 
@@ -83,7 +88,7 @@ export const FirebaseProvider = ({ children }) => {
 
   const value = {
     postArticle,
-    getAllArticles,
+    getAllPublicArticles,
     getMyArticles,
     getSpecificArticle,
     giveAStar,

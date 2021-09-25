@@ -100,25 +100,29 @@ function ViewArticle() {
                     {getDate(el.when).slice(4, 21)}
                   </Text>
                   <Spacer />
-                  <Box
-                    d="flex"
-                    flexDirection="row"
-                    alignItems="center"
-                    mt={[2, null, 0]}
-                  >
-                    <Text
-                      fontWeight="semibold"
-                      color="yellow.500"
-                      fontSize={["lg", "xl"]}
+                  {el.visibility === "private" ? (
+                    ""
+                  ) : (
+                    <Box
+                      d="flex"
+                      flexDirection="row"
+                      alignItems="center"
+                      mt={[2, null, 0]}
                     >
-                      {el.stars}
-                    </Text>
-                    <StarIcon
-                      color="yellow.500"
-                      fontSize={["lg", "xl"]}
-                      mx="2"
-                    />
-                  </Box>
+                      <Text
+                        fontWeight="semibold"
+                        color="yellow.500"
+                        fontSize={["lg", "xl"]}
+                      >
+                        {el.stars}
+                      </Text>
+                      <StarIcon
+                        color="yellow.500"
+                        fontSize={["lg", "xl"]}
+                        mx="2"
+                      />
+                    </Box>
+                  )}
                 </Box>
 
                 <Divider my="6" />
@@ -127,28 +131,34 @@ function ViewArticle() {
 
                 <Divider my="6" />
 
-                <Box d="flex">
-                  {/* <Spacer d={["none", null, "block"]} /> */}
-                  <Button
-                    rightIcon={<StarIcon />}
-                    colorScheme="yellow"
-                    variant="solid"
-                    onClick={handleGiveAStar}
-                    isLoading={starBtnLoading}
-                    mr="2"
-                  >
-                    Give a star
-                  </Button>
-                  <Button
-                    rightIcon={<LinkIcon />}
-                    onClick={handleShareArticle}
-                    colorScheme="blue"
-                  >
-                    Share
-                  </Button>
-                </Box>
+                {el.visibility === "private" ? (
+                  ""
+                ) : (
+                  <>
+                    <Box d="flex">
+                      {/* <Spacer d={["none", null, "block"]} /> */}
+                      <Button
+                        rightIcon={<StarIcon />}
+                        colorScheme="yellow"
+                        variant="solid"
+                        onClick={handleGiveAStar}
+                        isLoading={starBtnLoading}
+                        mr="2"
+                      >
+                        Give a star
+                      </Button>
+                      <Button
+                        rightIcon={<LinkIcon />}
+                        onClick={handleShareArticle}
+                        colorScheme="blue"
+                      >
+                        Share
+                      </Button>
+                    </Box>
 
-                <Comments />
+                    <Comments />
+                  </>
+                )}
               </Box>
             ))}
           </>

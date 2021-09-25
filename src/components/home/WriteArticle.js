@@ -6,6 +6,9 @@ import {
   Divider,
   Button,
   useToast,
+  Radio,
+  RadioGroup,
+  Stack,
 } from "@chakra-ui/react";
 
 import Nav from "../layout/Nav";
@@ -23,6 +26,7 @@ function WriteArticle() {
   const [subtitle, setSubtitle] = useState("");
   const [articleContent, setArticleContent] = useState("");
   const [loading, setLoading] = useState(false);
+  const [visibility, setVisibility] = useState("public");
   const toast = useToast();
   const history = useHistory();
 
@@ -50,6 +54,7 @@ function WriteArticle() {
         },
         when: Date.now(),
         stars: 0,
+        visibility: visibility,
       });
 
       toast({
@@ -107,7 +112,7 @@ function WriteArticle() {
             onChange={(e) => setSubtitle(e.target.value)}
           />
 
-          <Divider my="10" />
+          <Divider my={[6, 10]} />
 
           <Textarea
             variant="unstyled"
@@ -118,18 +123,55 @@ function WriteArticle() {
             rows={8}
           />
 
+          <Divider my={[6, 10]} />
+
+          <Box d="flex" flexDirection="column">
+            <Box
+              d="flex"
+              d="flex"
+              flexDirection={["column", null, "row"]}
+              justifyContent="flex-start"
+              alignItems={[null, null, "center"]}
+            >
+              <Text fontSize={["xl", "2xl"]} mr="4" mb={[2, 2, 0]}>
+                Choose your article's visibility
+              </Text>
+
+              <RadioGroup
+                onChange={setVisibility}
+                value={visibility}
+                mb={[2, 2, 0]}
+              >
+                <Stack direction="row">
+                  <Radio mr="2" isChecked={true} size="lg" value="public">
+                    Public
+                  </Radio>
+                  <Radio size="lg" value="private">
+                    Private
+                  </Radio>
+                </Stack>
+              </RadioGroup>
+            </Box>
+            <Text fontSize={["sm", "md"]} opacity="0.4" mb="2">
+              {visibility === "private"
+                ? "Your article will not be shared with the community and will be visible only to you. You can change it later anytime."
+                : "Your article will be shared with the community and anyone could read it. You can change it later anytime."}
+            </Text>
+          </Box>
+
           <Box
             d="flex"
             justifyContent="center"
             alignItems="center"
             flexDirection={["column-reverse", null, "row"]}
             my="6"
+            mb={[6, 6, 10]}
           >
             <Button
               fontSize={["md", "lg"]}
               py={8}
               isFullWidth
-              variant="ghost"
+              // variant="ghost"
               mr={["0", "0", "4"]}
               mt={["4", "0"]}
               as={Link}
@@ -145,7 +187,7 @@ function WriteArticle() {
               onClick={handlePost}
               isLoading={loading}
             >
-              Post
+              Post {visibility === "private" ? "privately" : "publicly"}
             </Button>
           </Box>
         </Box>

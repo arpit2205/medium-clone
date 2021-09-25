@@ -8,6 +8,7 @@ import {
   Button,
   useToast,
   Badge,
+  Select,
 } from "@chakra-ui/react";
 import {
   StarIcon,
@@ -28,6 +29,8 @@ function MyArticles() {
   const [articles, setArticles] = useState([]);
   const [docIDs, setDocIDs] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [selectValue, setSelectValue] = useState("all");
+  const [filteredArticles, setFilteredArticles] = useState([]);
 
   const toast = useToast();
 
@@ -36,6 +39,7 @@ function MyArticles() {
       setLoading(true);
       const data = await getMyArticles();
       setArticles(data.docs.map((el) => el.data()));
+      setFilteredArticles(data.docs.map((el) => el.data()));
       setDocIDs(data.docs.map((el) => el.id));
     } catch (err) {
       console.log(err);
@@ -64,6 +68,14 @@ function MyArticles() {
     }
   };
 
+  // const handleSelectValueChange = (value) => {
+  //   console.log(value);
+  //   setSelectValue(value);
+  //   console.log(selectValue);
+  //   if (value === "all") return;
+  //   setArticles(articles.filter((el) => el.visibility === selectValue));
+  // };
+
   const getDate = (timestamp) => {
     const d = new Date(timestamp);
     return d.toString();
@@ -84,13 +96,37 @@ function MyArticles() {
           <Box mx={["6", "10"]}>
             <Text fontSize={["2xl", "3xl"]}>Articles you have written</Text>
 
+            <Box d="flex">
+              <Spacer />
+
+              <Select
+                // placeholder="Choose article visibility"
+                w={["100%", null, "400px"]}
+                mt={[10, null, 6]}
+                onChange={(e) => {
+                  setSelectValue(e.target.value);
+                  if (e.target.value === "all") {
+                    setFilteredArticles(articles);
+                  } else
+                    setFilteredArticles(
+                      articles.filter((el) => el.visibility === e.target.value)
+                    );
+                }}
+                value={selectValue}
+              >
+                <option value="all">All articles</option>
+                <option value="public">Public articles</option>
+                <option value="private">Private articles</option>
+              </Select>
+            </Box>
+
             <Box
               my="10"
               d="flex"
               justifyContent="center"
               flexDirection="column"
             >
-              {articles.map((el, i) => {
+              {filteredArticles.map((el, i) => {
                 return (
                   <>
                     <Box

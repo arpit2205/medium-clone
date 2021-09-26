@@ -68,13 +68,14 @@ function MyArticles() {
     }
   };
 
-  // const handleSelectValueChange = (value) => {
-  //   console.log(value);
-  //   setSelectValue(value);
-  //   console.log(selectValue);
-  //   if (value === "all") return;
-  //   setArticles(articles.filter((el) => el.visibility === selectValue));
-  // };
+  const handleSelectChange = (e) => {
+    const value = e.target.value;
+    setSelectValue(value);
+    if (value === "all") {
+      setFilteredArticles(articles);
+    } else
+      setFilteredArticles(articles.filter((el) => el.visibility === value));
+  };
 
   const getDate = (timestamp) => {
     const d = new Date(timestamp);
@@ -96,22 +97,14 @@ function MyArticles() {
           <Box mx={["6", "10"]}>
             <Text fontSize={["2xl", "3xl"]}>Articles you have written</Text>
 
-            <Box d="flex">
+            <Box d="flex" justifyContent="center" alignItems="center">
               <Spacer />
 
               <Select
                 // placeholder="Choose article visibility"
-                w={["100%", null, "400px"]}
-                mt={[10, null, 6]}
-                onChange={(e) => {
-                  setSelectValue(e.target.value);
-                  if (e.target.value === "all") {
-                    setFilteredArticles(articles);
-                  } else
-                    setFilteredArticles(
-                      articles.filter((el) => el.visibility === e.target.value)
-                    );
-                }}
+                w={["100%", null, "320px"]}
+                mt="8"
+                onChange={(e) => handleSelectChange(e)}
                 value={selectValue}
               >
                 <option value="all">All articles</option>
@@ -121,7 +114,8 @@ function MyArticles() {
             </Box>
 
             <Box
-              my="10"
+              mt="6"
+              mb="10"
               d="flex"
               justifyContent="center"
               flexDirection="column"

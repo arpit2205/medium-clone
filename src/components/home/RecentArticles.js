@@ -35,7 +35,13 @@ function SuggestedArticles() {
       {loading ? (
         <LoadingSmall />
       ) : (
-        <Box my="10" d="flex" justifyContent="center" flexDirection="column">
+        <Box
+          mt="10"
+          mb={[0, 0, 4]}
+          d="flex"
+          justifyContent="center"
+          flexDirection="column"
+        >
           {articles.map((el) => (
             <Box
               d="flex"

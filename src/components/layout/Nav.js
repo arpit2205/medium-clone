@@ -15,6 +15,7 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import { HamburgerIcon, ChevronDownIcon } from "@chakra-ui/icons";
+import { FiGithub } from "react-icons/fi";
 import SideBar from "./SideBar";
 import ToggleTheme from "../../theme/ToggleTheme";
 import { useAuth } from "../../contexts/AuthContext";
@@ -65,7 +66,16 @@ function Nav() {
             Medium
           </Text>
           <Spacer />
+          <IconButton
+            onClick={() =>
+              window.open("https://github.com/arpit2205/medium-clone", "_blank")
+            }
+            variant="ghost"
+            // size="lg"
+            icon={<FiGithub />}
+          />
           <ToggleTheme />
+
           <Box ml="2">
             {currentUser ? (
               <Menu placement="bottom-end">

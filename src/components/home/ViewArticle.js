@@ -127,7 +127,9 @@ function ViewArticle() {
 
                 <Divider my="6" />
 
-                <Text fontSize={["lg", "xl"]}>{el.content.articleContent}</Text>
+                <Text fontSize={["lg", "xl"]} style={{ whiteSpace: "pre" }}>
+                  {el.content.articleContent}
+                </Text>
 
                 <Divider my="6" />
 

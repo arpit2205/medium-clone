@@ -127,7 +127,10 @@ function ViewArticle() {
 
                 <Divider my="6" />
 
-                <Text fontSize={["lg", "xl"]} style={{ whiteSpace: "pre" }}>
+                <Text
+                  fontSize={["lg", "xl"]}
+                  style={{ whiteSpace: "pre-wrap" }}
+                >
                   {el.content.articleContent}
                 </Text>
 

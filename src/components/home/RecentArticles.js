@@ -1,6 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Box, Text, Divider } from "@chakra-ui/react";
-import { StarIcon } from "@chakra-ui/icons";
+import {
+  Box,
+  Text,
+  Divider,
+  Input,
+  InputGroup,
+  InputLeftElement,
+} from "@chakra-ui/react";
+import { StarIcon, SearchIcon } from "@chakra-ui/icons";
 import LoadingSmall from "../layout/LoadingSmall";
 
 import { useFirebase } from "../../contexts/FirebaseContext";
@@ -10,6 +17,7 @@ import { Link } from "react-router-dom";
 function SuggestedArticles() {
   const { getAllPublicArticles } = useFirebase();
   const [articles, setArticles] = useState([]);
+  const [filteredArticles, setFilteredArticles] = useState([]);
   const [loading, setLoading] = useState(false);
 
   useEffect(async () => {
@@ -17,6 +25,7 @@ function SuggestedArticles() {
       setLoading(true);
       const data = await getAllPublicArticles();
       setArticles(data.docs.map((el) => el.data()));
+      setFilteredArticles(data.docs.map((el) => el.data()));
     } catch (err) {
       console.log(err);
     }
@@ -28,9 +37,38 @@ function SuggestedArticles() {
     return d.toString();
   };
 
+  const handleSearch = (e) => {
+    const searchValue = e.target.value;
+    console.log(searchValue);
+
+    const filteredResults = articles.filter((article) => {
+      return article.content.title
+        .toLowerCase()
+        .includes(searchValue.toLowerCase());
+    });
+    setFilteredArticles(filteredResults);
+  };
+
   return (
     <Box mx={["6", "10"]}>
       <Text fontSize={["2xl", "3xl"]}>Recently posted articles</Text>
+
+      <Box my={[4, null, null, 8]}>
+        <InputGroup>
+          <InputLeftElement
+            pointerEvents="none"
+            children={<SearchIcon color="gray.400" />}
+            mt="4px"
+            ml="4px"
+          />
+          <Input
+            type="text"
+            placeholder="Search for articles"
+            height={"48px"}
+            onChange={(e) => handleSearch(e)}
+          />
+        </InputGroup>
+      </Box>
 
       {loading ? (
         <LoadingSmall />
@@ -42,7 +80,12 @@ function SuggestedArticles() {
           justifyContent="center"
           flexDirection="column"
         >
-          {articles.map((el) => (
+          {filteredArticles.length === 0 ? (
+            <Text fontSize="xl" textAlign="center">
+              No articles found
+            </Text>
+          ) : null}
+          {filteredArticles.map((el) => (
             <Box
               d="flex"
               justifyContent="center"

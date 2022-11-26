@@ -5,9 +5,9 @@
 https://medium-a5f6d.web.app/
 
 # About
-• Write, read and share articles with the community.
-• Users can star, comment, and post articles publicly as well as privately.
-• Minimal UI with light and dark themes for ease of reading.
+- Write, read and share articles with the community.
+- Users can star, comment, and post articles publicly as well as privately.
+- Minimal UI with light and dark themes for ease of reading.
 
 # Tech stack
 - Javascript
